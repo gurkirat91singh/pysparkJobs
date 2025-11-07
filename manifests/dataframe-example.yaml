@@ -1,0 +1,22 @@
+apiVersion: sparkoperator.k8s.io/v1beta2
+kind: SparkApplication
+metadata:
+  name: dataframe-example
+  namespace: default
+spec:
+  type: Python
+  mode: cluster
+  image: bitnami/spark:3.5.1
+  imagePullPolicy: Always
+  mainApplicationFile: local:///opt/spark/examples/src/main/python/dataframe-example.py
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  driver:
+    serviceAccount: spark-s3-access-sa
+    cores: 1
+    memory: 512m
+  executor:
+    cores: 1
+    instances: 2
+    memory: 512m
