@@ -6,7 +6,7 @@ metadata:
 spec:
   type: Python
   pythonVersion: "3"
-  mode: client                 # Driver runs in this pod and stays alive
+  mode: cluster               # Driver runs in this pod and stays alive
   image: apache/spark:3.4.1
   imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/src/main/python/pi.py
@@ -25,8 +25,3 @@ spec:
     instances: 2
     labels:
       version: "3.4.1"
-  sparkConf:
-    "spark.kubernetes.driver.pod.name": "spark-pi-client-driver"
-    "spark.kubernetes.driver.retained": "true"   # keeps driver pod after job finishes
-    "spark.eventLog.enabled": "true"
-    "spark.eventLog.dir": "s3a://<your-s3-bucket>/spark-history/"  # optional for history server
